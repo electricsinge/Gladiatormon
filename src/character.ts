@@ -25,6 +25,10 @@ function findLevel(xp){
   return xp;
 }
 
+function findXP(level){
+  level = Math.pow(level, 2)
+  level*=2;
+}
 
 function setText(textReference, newText){
   textReference.innerText = newText;
@@ -70,9 +74,7 @@ class weapon{
      p.reference.style.transform = `translate(${s[1]}px, ${s[0]}px)`;
   }
 
-  /*moveSword(slope){
-     this.reference.style.transform = `translate(${slope[1]}px, ${slope[0]}px)`;
-  }*/
+
   inflictDamage(enemy, attack){
     enemy.health -= attack.damage;
     enemy.effect = attack.effect;
@@ -164,7 +166,7 @@ class character{
     console.log(value);
     this._health = value;
     if(value<=0){
-      document.getElementById("game-container").style.zIndex = "999999999";
+      
     }
   }
   
@@ -193,12 +195,11 @@ class playerCharacter extends character{
 
 class enemy extends character{
   constructor(n, s, l, hp){
-    super(n,s, 2, document.getElementById("battlecharacter"));
+    super(n,s, findXP(l), document.getElementById("battlecharacter"), hp);
     this.level = l;
-    this.health = hp;
   }
 }
 
 skills[0] = new skill("Retiarius", [weapons[0], weapons[1]], 1);
 player = new playerCharacter("Elliott", skills[0]);
-enemies[0] = new character("Test Dummy", skills[0], 20, document.getElementById("battleopponent"), 0);
+enemies[0] = new enemy("Test Dummy", skills[0], 20, 0);

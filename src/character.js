@@ -35,6 +35,10 @@ function findLevel(xp) {
     xp = Math.floor(xp);
     return xp;
 }
+function findXP(level) {
+    level = Math.pow(level, 2);
+    level *= 2;
+}
 function setText(textReference, newText) {
     textReference.innerText = newText;
 }
@@ -71,9 +75,6 @@ var weapon = /** @class */ (function () {
     weapon.prototype.movePlayer = function (p, s) {
         p.reference.style.transform = "translate(".concat(s[1], "px, ").concat(s[0], "px)");
     };
-    /*moveSword(slope){
-       this.reference.style.transform = `translate(${slope[1]}px, ${slope[0]}px)`;
-    }*/
     weapon.prototype.inflictDamage = function (enemy, attack) {
         enemy.health -= attack.damage;
         enemy.effect = attack.effect;
@@ -157,7 +158,6 @@ var character = /** @class */ (function () {
             console.log(value);
             this._health = value;
             if (value <= 0) {
-                document.getElementById("game-container").style.zIndex = "999999999";
             }
         },
         enumerable: false,
@@ -196,13 +196,12 @@ var playerCharacter = /** @class */ (function (_super) {
 var enemy = /** @class */ (function (_super) {
     __extends(enemy, _super);
     function enemy(n, s, l, hp) {
-        var _this = _super.call(this, n, s, 2, document.getElementById("battlecharacter")) || this;
+        var _this = _super.call(this, n, s, findXP(l), document.getElementById("battlecharacter"), hp) || this;
         _this.level = l;
-        _this.health = hp;
         return _this;
     }
     return enemy;
 }(character));
 skills[0] = new skill("Retiarius", [weapons[0], weapons[1]], 1);
 player = new playerCharacter("Elliott", skills[0]);
-enemies[0] = new character("Test Dummy", skills[0], 20, document.getElementById("battleopponent"), 0);
+enemies[0] = new enemy("Test Dummy", skills[0], 20, 0);
