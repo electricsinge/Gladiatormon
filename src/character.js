@@ -117,12 +117,13 @@ var weapon = /** @class */ (function () {
 weapons[0] = new weapon("Dagger", 5, [attacks[0], attacks[1]], exampleimg[0]);
 weapons[1] = new weapon("Net", 2, attacks[2], exampleimg[0]);
 var attack = /** @class */ (function () {
-    function attack(naming, damageofa, effects, chanceofhit, w) {
+    function attack(naming, d, effects, chanceofhit, w) {
         this.name = naming;
-        this.damage = damageofa;
+        this.damage = d;
         this.effect = effects;
         this.hitpercent = chanceofhit;
         this.weapon = w;
+        this.type = {};
     }
     return attack;
 }());
@@ -195,11 +196,23 @@ var playerCharacter = /** @class */ (function (_super) {
 }(character));
 var enemy = /** @class */ (function (_super) {
     __extends(enemy, _super);
-    function enemy(n, s, l, hp) {
+    function enemy(n, s, l, hp, i) {
         var _this = _super.call(this, n, s, findXP(l), document.getElementById("battlecharacter"), hp) || this;
         _this.level = l;
+        _this.intelligence = i;
         return _this;
     }
+    enemy.prototype.chooseAction = function () {
+        var actions = this.attacks;
+        var attacks = {};
+        for (var i = 0; i < actions.length; i++) {
+            attack = {
+                attack: actions[i],
+                score: 0
+            };
+            attack.score += attack.attack.damage;
+        }
+    };
     return enemy;
 }(character));
 skills[0] = new skill("Retiarius", [weapons[0], weapons[1]], 1);

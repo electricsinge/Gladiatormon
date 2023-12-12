@@ -124,12 +124,13 @@ weapons[1] = new weapon("Net", 2, attacks[2], exampleimg[0]);
 
 
 class attack{
-  constructor(naming, damageofa, effects, chanceofhit, w) {
+  constructor(naming, d, effects, chanceofhit, w) {
     this.name = naming;
-    this.damage = damageofa;
+    this.damage = d;
     this.effect = effects;
     this.hitpercent = chanceofhit;
     this.weapon = w;
+    this.type = {};
   }
 }
 
@@ -194,10 +195,26 @@ class playerCharacter extends character{
 }
 
 class enemy extends character{
-  constructor(n, s, l, hp){
+  constructor(n, s, l, hp, i){
     super(n,s, findXP(l), document.getElementById("battlecharacter"), hp);
     this.level = l;
+    this.intelligence = i;
   }
+  
+  chooseAction(){
+    let actions = this.attacks;
+    let attacks = {};
+
+    for(let i = 0; i < actions.length; i++){
+       attack = {
+          attack: actions[i],
+	  score: 0
+       }
+
+       attack.score += attack.attack.damage;
+    }
+  }
+
 }
 
 skills[0] = new skill("Retiarius", [weapons[0], weapons[1]], 1);
