@@ -16,6 +16,19 @@ gcd = gcd(number,denomin);
 return [number/gcd, denomin/gcd]; 
 }
 
+function closest(num, arr) {
+   var curr = arr[0];
+   var diff = Math.abs(num - curr);
+   for (var val = 0; val < arr.length; val++) {
+       var newdiff = Math.abs(num - arr[val]);
+       if (newdiff < diff) {
+           diff = newdiff;
+           curr = arr[val];
+       }
+   }
+   return curr;
+}
+
 
 function findLevel(xp){
   xp/=2;
@@ -128,7 +141,7 @@ class attack{
     this.name = naming;
     this.damage = d;
     this.effect = effects;
-    this.hitpercent = chanceofhit;
+    this.hitPercent = chanceofhit;
     this.weapon = w;
     this.type = {};
   }
@@ -195,28 +208,37 @@ class playerCharacter extends character{
 }
 
 class enemy extends character{
-  constructor(n, s, l, hp, i){
+  constructor(n, s, l, hp, i, r){
     super(n,s, findXP(l), document.getElementById("battlecharacter"), hp);
     this.level = l;
     this.intelligence = i;
+    this.riskLevel = r;
   }
   
   chooseAction(){
     let actions = this.attacks;
-    let attacks = {};
+    let attacks = [];
 
     for(let i = 0; i < actions.length; i++){
-       attack = {
+       attacks[i] = {
           attack: actions[i],
 	  score: 0
        }
 
-       attack.score += attack.attack.damage;
+       attacks.score += actions[i].damage;
+
+       attacks.score -= Math.abs(this.riskLevel - actions[i].hitPercent);
     }
+
+    for(let i = 0; i < attacks.length; i++){
+	    let finalAttack = closest(this.intelligence + Math.floor(Math.random() * 50), attacks.score);
+	    return finalAttack;
+    }
+
   }
 
 }
 
 skills[0] = new skill("Retiarius", [weapons[0], weapons[1]], 1);
 player = new playerCharacter("Elliott", skills[0]);
-enemies[0] = new enemy("Test Dummy", skills[0], 20, 0);
+enemies[0] = new enemy("Test Dummy", skills[0], 20, 0, 50);
