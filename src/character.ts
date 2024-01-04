@@ -137,13 +137,14 @@ weapons[1] = new weapon("Net", 2, attacks[2], exampleimg[0]);
 
 
 class attack{
-  constructor(naming, d, effects, chanceofhit, w) {
+  constructor(naming, d, effects, chanceofhit, w, r) {
     this.name = naming;
     this.damage = d;
     this.effect = effects;
     this.hitPercent = chanceofhit;
     this.weapon = w;
     this.type = {};
+	this.risk = r;
   }
 }
 
@@ -211,13 +212,14 @@ class enemy extends character{
   constructor(n, s, l, hp, i, r){
     super(n,s, findXP(l), document.getElementById("battlecharacter"), hp);
     this.level = l;
-    this.intelligence = i;
+    this.skill = i;
     this.riskLevel = r;
   }
   
   chooseAction(){
     let actions = this.attacks;
     let attacks = [];
+	let scores = [];
 
     for(let i = 0; i < actions.length; i++){
        attacks[i] = {
@@ -227,13 +229,13 @@ class enemy extends character{
 
        attacks.score += actions[i].damage;
 
-       attacks.score -= Math.abs(this.riskLevel - actions[i].hitPercent);
+       attacks.score -= Math.abs(this.riskLevel - actions[i].risk);
+	    
+	attacks.score -= Math.abs(this.skill - actions[i].hitPercent);
     }
 
-    for(let i = 0; i < attacks.length; i++){
-	    let finalAttack = closest(this.intelligence + Math.floor(Math.random() * 50), attacks.score);
-	    return finalAttack;
-    }
+	let finalAttack = closest(this.intelligence + Math.floor(Math.random() * 50), attacks.score);
+	return finalAttack;
 
   }
 
