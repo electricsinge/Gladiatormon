@@ -232,12 +232,19 @@ class enemy extends character{
        attacks.score -= Math.abs(this.riskLevel - actions[i].risk);
 	    
 	attacks.score -= Math.abs(this.skill - actions[i].hitPercent);
+
+	scores[i] = attacks[i].score;
     }
 
-	let finalAttack = closest(this.intelligence + Math.floor(Math.random() * 50), attacks.score);
+	let finalAttack = attacks[closest(this.intelligence + Math.floor(Math.random() * 50), scores)].attack;
 	return finalAttack;
-
   }
+
+
+	attack(){
+		let finalAttack = chooseAction();
+		console.log(finalAttack);
+	}
 
 }
 
