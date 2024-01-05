@@ -107,7 +107,8 @@ class weapon{
      this.inflictDamage(enemy, attack);
        let goBack = setInterval(() => {
           if (this.reference.getBoundingClientRect().top == originaltoppos) {
-            clearInterval(goBack);
+            turn = !turn;
+	    clearInterval(goBack);
           } else {
             iterationsofinterval++;
             changingslope[0] -= slope[0];
