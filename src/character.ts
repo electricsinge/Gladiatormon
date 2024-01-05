@@ -108,6 +108,9 @@ class weapon{
        let goBack = setInterval(() => {
           if (this.reference.getBoundingClientRect().top == originaltoppos) {
             turn = !turn;
+	    if(turn==false){
+		    currentEnemy.attack();
+	    }
 	    clearInterval(goBack);
           } else {
             iterationsofinterval++;
