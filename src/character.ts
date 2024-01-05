@@ -247,7 +247,7 @@ class enemy extends character{
 
 	attack(){
 		let finalAttack = chooseAction();
-		console.log(finalAttack);
+		alert(finalAttack);
 	}
 
 }
