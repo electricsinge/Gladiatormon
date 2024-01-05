@@ -2,6 +2,7 @@ let background = "";
 let buttonAttacks = [attacks[0], attacks[1], attacks[2]];
 let options = ["Attack","Defend","Spare"];
 let turn = true;
+let currentEnemy = enemies[0];
 
 let attackonbuttons = false;
 let attacking = false;
