@@ -28,7 +28,7 @@ let buttonText = {
 
 
 function pressAttack(attack){
-  weapons[0].startMoveSword(player, enemies[0], attack);
+  weapons[0].startMoveSword(player, currentEnemy, attack);
 }
 
 
