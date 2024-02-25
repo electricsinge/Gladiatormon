@@ -4,6 +4,8 @@ let options = ["Attack","Defend","Spare"];
 let turn = true;
 let currentEnemy = enemies[0];
 
+
+
 let attackonbuttons = false;
 let attacking = false;
 
@@ -28,7 +30,7 @@ let buttonText = {
 
 
 function pressAttack(attack){
-  weapons[0].startMoveSword(player, currentEnemy, attack);
+  weapons[0].startMoveSword(player, currentEnemy, attack, true);
 }
 
 
@@ -44,7 +46,6 @@ function clickButton(index){
   else if(attacking){
     if(turn==true){
       pressAttack(buttonAttacks[index]);
-      turn=false;
     }
   }
 }

@@ -6,7 +6,8 @@ let player = {};
 let exampleimg = [];
 exampleimg[0] = 'https://png.pngtree.com/element_our/20190603/ourmid/pngtree-metal-sword-cartoon-weapon-image_1445214.jpg';
 let enemies = [];
-
+const playerWeapon = document.getElementById("weaponId");
+const enemyWeapon = document.getElementById("enemyWeaponId");
 
 function reduce(number,denomin){ 
 var gcd = function gcd(a,b){ 
@@ -70,11 +71,12 @@ class effect{
 effects[0] = new effect("Net", 0, "#808080", false);
 
 class weapon{
-  constructor(n, d, i) {
+  constructor(n, d, a, i, r) {
     this.name = n;
     this.plusdamage = d;
+    this.attacks = a;
     this.img = i;
-    this.reference = document.getElementById("weapon");
+    this.reference = r;
   }
   
   findSlope(p1, p2){
@@ -93,24 +95,25 @@ class weapon{
   inflictDamage(enemy, attack){
     enemy.health -= attack.damage;
     enemy.effect = attack.effect;
+    turn =! turn;
   }
 
   
-  startMoveSword(player, enemy, attack){
-     let slope = this.findSlope([this.reference.getBoundingClientRect().top, this.reference.getBoundingClientRect().left], [enemy.reference.getBoundingClientRect().top + enemy.reference.getBoundingClientRect().height/2, enemy.reference.getBoundingClientRect().left + enemy.reference.getBoundingClientRect().width/2]);
+  startMoveSword(attacker, victim, attack, isPlayer){
+    console.log("ref", this.reference);
+     let slope = this.findSlope([this.reference.getBoundingClientRect().top, this.reference.getBoundingClientRect().left], [victim.reference.getBoundingClientRect().top + victim.reference.getBoundingClientRect().height/2, victim.reference.getBoundingClientRect().left + victim.reference.getBoundingClientRect().width/2]);
   let iterationsofinterval = 0;
   let changingslope = [0,0];
   let swordslope = [0,0];
-  let originaltoppos = this.reference.getBoundingClientRect().top;
+  let initialAttackerTopPosition = this.reference.getBoundingClientRect().top;
     
   let intervalId = setInterval(() => {
-	  console.log("HIO");
-     if (player.reference.getBoundingClientRect().left <= enemy.reference.getBoundingClientRect().left + enemy.reference.getBoundingClientRect().width/2) {
-	     console.log("WHAT", player.reference, enemy.reference);
+     if (attacker.reference.getBoundingClientRect().left <= victim.reference.getBoundingClientRect().left + victim.reference.getBoundingClientRect().width/2 && isPlayer==true || attacker.reference.getBoundingClientRect().left >= victim.reference.getBoundingClientRect().left - victim.reference.getBoundingClientRect().width/2 && isPlayer==false) {
+	     console.log("WHAT", attacker.reference, victim.reference);
        iterationsofinterval = 0;
-     this.inflictDamage(enemy, attack);
+     this.inflictDamage(victim, attack);
        let goBack = setInterval(() => {
-          if (this.reference.getBoundingClientRect().top == originaltoppos) {
+          if (this.reference.getBoundingClientRect().top == initialAttackerTopPosition) {
 	    if(turn==false){
 		    currentEnemy.attack();
 	    }
@@ -119,7 +122,7 @@ class weapon{
             iterationsofinterval++;
             changingslope[0] -= slope[0];
             changingslope[1] -= slope[1];
-            this.movePlayer(player, changingslope);
+            this.movePlayer(attacker, changingslope);
           }
        }, 5);
        clearInterval(intervalId);
@@ -130,8 +133,8 @@ class weapon{
        changingslope[1] = slope[1]*iterationsofinterval;
 
        
-       this.movePlayer(player, changingslope);
-	     console.log(changingslope);
+       this.movePlayer(attacker, changingslope);
+	     console.log("slope", changingslope);
      }
   }, 5); // 100 milliseconds = 0.1 seconds
 
@@ -140,8 +143,8 @@ class weapon{
 
 }
 
-weapons[0] = new weapon("Dagger", 5, [attacks[0], attacks[1]], exampleimg[0]);
-weapons[1] = new weapon("Net", 2, attacks[2], exampleimg[0]);
+weapons[0] = new weapon("Dagger", 5, [attacks[0], attacks[1]], exampleimg[0], playerWeapon);
+weapons[1] = new weapon("Net", 2, attacks[2], exampleimg[0], enemyWeapon);
 
 
 class attack{
@@ -161,10 +164,11 @@ attacks[1] = new attack("Stab", 8, {}, 40, [weapons[0]]);
 attacks[2] = new attack("Throw Net", 2, effects[0], 70, [weapons[1]]);
 
 class skill{
-  constructor(n, w, hp){
+  constructor(n, w, hp, a){
     this.name = n;
     this.weapon = w;
     this.plushealth = hp;
+    this.attacks = a;
   }
 }
 
@@ -173,7 +177,7 @@ class character{
     this.name = n;
     this.skill = s;
     this.reference = r;
-    this.attacks = [];
+    this.attacks = s.attacks;
     this._effect;
     this._health = hp + s.plushealth;
     this.gold = 0;
@@ -220,43 +224,46 @@ class enemy extends character{
   constructor(n, s, l, hp, i, r){
     super(n,s, findXP(l), document.getElementById("battleopponent"), hp);
     this.level = l;
-    this.skill = i;
+    this.intelligence = i;
     this.riskLevel = r;
   }
   
   chooseAction(){
     let actions = this.attacks;
     let attacks = [];
-	let scores = [];
+	  let scores = [];
 
     for(let i = 0; i < actions.length; i++){
-       attacks[i] = {
-          attack: actions[i],
-	  score: 0
-       }
+      attacks[i] = {
+        attack: actions[i],
+        score: 0
+      }
 
-       attacks.score += actions[i].damage;
+      attacks.score += actions[i].damage;
 
-       attacks.score -= Math.abs(this.riskLevel - actions[i].risk);
-	    
-	attacks.score -= Math.abs(this.skill - actions[i].hitPercent);
+      attacks.score -= Math.abs(this.riskLevel - actions[i].risk);
+        
+      attacks.score -= Math.abs(this.skill - actions[i].hitPercent);
 
-	scores[i] = attacks[i].score;
+      scores[i] = attacks[i].score;
     }
-
-	//let finalAttack = attacks[closest(this.intelligence + Math.floor(Math.random() * 50), scores)].attack;
-	  console.log("closest", attacks[closest(this.intelligence, scores)]);
+  let closestValue = closest((this.skill + Math.floor(Math.random() * 50)), scores);
+  console.log("value", closestValue);
+  console.log("attacks", attacks);
+	let finalAttack = attacks[closestValue].attack;
+	console.log("closest", attacks[closest(this.skill, scores)]);
 	return finalAttack;
   }
 
 
 	attack(){
 		let finalAttack = this.chooseAction();
-		alert(finalAttack);
+		this.skill.weapon.startMoveSword(this, player, finalAttack, false);
 	}
 
 }
 
-skills[0] = new skill("Retiarius", [weapons[0], weapons[1]], 1);
+skills[0] = new skill("Retiarius", weapons[0], 1, [attacks[0], attacks[1], attacks[2]]);
+skills[1] = new skill("Dummy", weapons[1], 1, [attacks[0], attacks[1], attacks[2]]);
 player = new playerCharacter("Elliott", skills[0]);
-enemies[0] = new enemy("Test Dummy", skills[0], 20, 0, 50);
+enemies[0] = new enemy("Test Dummy", skills[1], 20, 10, 50, 5);
