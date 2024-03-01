@@ -2,7 +2,7 @@ let effects = [];
 let attacks = [];
 let weapons = [];
 let skills = [];
-let player = {};
+let playerBattleData = {};
 let exampleimg = [];
 exampleimg[0] = 'https://png.pngtree.com/element_our/20190603/ourmid/pngtree-metal-sword-cartoon-weapon-image_1445214.jpg';
 let enemies = [];
@@ -51,11 +51,11 @@ function setText(textReference, newText){
 }
 
 function setPlayerLevelText(){
-  setText(document.getElementById("level"), findLevel(player.xp));
+  setText(document.getElementById("level"), findLevel(playerBattleData.xp));
 }
 
 function setPlayerNameText(){
-  setText(document.getElementById("name"), player.name);
+  setText(document.getElementById("name"), playerBattleData.name);
 }
 
 
@@ -258,12 +258,12 @@ class enemy extends character{
 
 	attack(){
 		let finalAttack = this.chooseAction();
-		this.skill.weapon.startMoveSword(this, player, finalAttack, false);
+		this.skill.weapon.startMoveSword(this, playerBattleData, finalAttack, false);
 	}
 
 }
 
 skills[0] = new skill("Retiarius", weapons[0], 1, [attacks[0], attacks[1], attacks[2]]);
 skills[1] = new skill("Dummy", weapons[1], 1, [attacks[0], attacks[1], attacks[2]]);
-player = new playerCharacter("Elliott", skills[0]);
+playerBattleData = new playerCharacter("Elliott", skills[0]);
 enemies[0] = new enemy("Test Dummy", skills[1], 20, 10, 50, 5);

@@ -3,8 +3,29 @@ let buttonAttacks = [attacks[0], attacks[1], attacks[2]];
 let options = ["Attack","Defend","Spare"];
 let turn = true;
 let currentEnemy = enemies[0];
+let gameContainer = document.getElementById("game-container");
+let playerWalking = document.createElement("div");
+playerWalking.style.Id = "playerModel";
+gameContainer.appendChild(playerWalking);
 
+function enterBattle(){
+  for (var i = 0; i < gameContainer.children.length; i++) { 
+    gameContainer.children[i].style.visibility = "visible";
+  }
+  playerWalking.style.visibility = "hidden";
+  gameContainer.innerHTML = `<div id="battlecharacter"><div id="weaponId" class="weapons"></div></div><div id="battleopponent"><div id="enemyWeaponId" class="weapons"></div></div><div id="infosection"><info id="name"></info><br><info>Level: <info id="level"></info></info><div id="btn-group"><button onclick=clickButton(0)></button><button onclick=clickButton(1)></button><button onclick=clickButton(2)></button></div></div><button id="backarrow" onclick=backclick()></button></div>`;
+}
 
+function leaveBattle(){
+  for (var i = 0; i < gameContainer.children.length; i++) { 
+    gameContainer.children[i].style.visibility = "hidden";
+  }
+  playerWalking.style.visibility = "visible";
+  gameContainer.style.backgroundImage = "url('Images/Gladiatormon-WorldMap.png')";
+  gameContainer.style.backgroundSize = "500%";
+}
+
+leaveBattle();
 
 let attackonbuttons = false;
 let attacking = false;
@@ -30,7 +51,7 @@ let buttonText = {
 
 
 function pressAttack(attack){
-  weapons[0].startMoveSword(player, currentEnemy, attack, true);
+  weapons[0].startMoveSword(playerBattleData, currentEnemy, attack, true);
 }
 
 
