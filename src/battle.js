@@ -8,6 +8,7 @@ let playerWalking = document.createElement("div");
 let playerWorld{
   playerWalking: document.createElement(div);
   playerTransform: [0, 0];
+  speed: 20;
 
   set x(value){
     playerTransform[0] += value;
