@@ -6,28 +6,28 @@ let currentEnemy = enemies[0];
 let gameContainer = document.getElementById("game-container");
 let playerWalking = document.createElement("div");
 let playerWorld{
-  playerWalking: document.createElement(div);
-  playerTransform: [0, 0];
-  speed: 20;
+  playerWalking: document.createElement(div),
+  playerTransform: [0, 0],
+  speed: 20,
 
   set x(value){
     playerTransform[0] += value;
     this.playerWalking.style.transform = `translate(${playerTransform[0]}px, ${playerTransform[1]}px)`;
-  }
+  },
   
   set y(value){
     playerTransform[1] += value;
     this.playerWalking.style.transform = `translate(${playerTransform[0]}px, ${playerTransform[1] + value}px)`;
   }
 }
-playerWalking.id = "playerModel";
-gameContainer.appendChild(playerWalking);
+playerWorld.playerWalking.id = "playerModel";
+gameContainer.appendChild(playerWorld.playerWalking);
 
 function enterBattle(){
   for (var i = 0; i < gameContainer.children.length; i++) { 
     gameContainer.children[i].style.visibility = "visible";
   }
-  playerWalking.style.visibility = "hidden";
+  playerWorld.playerWalking.style.visibility = "hidden";
   gameContainer.innerHTML = `<div id="battlecharacter"><div id="weaponId" class="weapons"></div></div><div id="battleopponent"><div id="enemyWeaponId" class="weapons"></div></div><div id="infosection"><info id="name"></info><br><info>Level: <info id="level"></info></info><div id="btn-group"><button onclick=clickButton(0)></button><button onclick=clickButton(1)></button><button onclick=clickButton(2)></button></div></div><button id="backarrow" onclick=backclick()></button></div>`;
 }
 
@@ -35,14 +35,14 @@ function leaveBattle(){
   for (var i = 0; i < gameContainer.children.length; i++) { 
     gameContainer.children[i].style.visibility = "hidden";
   }
-  playerWalking.style.visibility = "visible";
+  playerWorld.playerWalking.style.visibility = "visible";
   gameContainer.style.backgroundImage = "url('Images/Gladiatormon-WorldMap.png')";
   gameContainer.style.backgroundSize = "500%";
   console.log(gameContainer.getBoundingClientRect());
   console.log(gameContainer);
-  console.log(playerWalking);
-  playerWalking.style.left = `${gameContainer.offsetWidth / 2 - playerWalking.offsetWidth / 2}px`;
-  playerWalking.style.top = `${gameContainer.offsetHeight / 2 - playerWalking.offsetHeight / 2}px`;
+  console.log(playerWorld.playerWalking);
+  playerWorld.playerWalking.style.left = `${gameContainer.offsetWidth / 2 - playerWalking.offsetWidth / 2}px`;
+  playerWorld.playerWalking.style.top = `${gameContainer.offsetHeight / 2 - playerWalking.offsetHeight / 2}px`;
 }
 
 leaveBattle();
