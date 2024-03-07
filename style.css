@@ -121,15 +121,19 @@ gametitlespace{
   padding-left: 4.25%;
 }
 
-info{
+.info{
   font-weight:bold;
   font-family: serif;
   font-size:20px;
 }
 
 #playerModel{
-  margin: auto;
-  background-image: url("Images/Gladiator.png");
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 500px;
   width: 500px;
+  transform: scale(0.25, 0.25);
+  background-image: url("./Images/Gladiator.png");
 }
