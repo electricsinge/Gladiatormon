@@ -31,7 +31,7 @@ function enterBattle(){
   gameContainer.innerHTML = `<div id="battlecharacter"><div id="weaponId" class="weapons"></div></div><div id="battleopponent"><div id="enemyWeaponId" class="weapons"></div></div><div id="infosection"><info id="name"></info><br><info>Level: <info id="level"></info></info><div id="btn-group"><button onclick=clickButton(0)></button><button onclick=clickButton(1)></button><button onclick=clickButton(2)></button></div></div><button id="backarrow" onclick=backclick()></button></div>`;
 }
 
-function leaveBattle(){
+/*function leaveBattle(){
   for (var i = 0; i < gameContainer.children.length; i++) { 
     gameContainer.children[i].style.visibility = "hidden";
   }
@@ -43,7 +43,7 @@ function leaveBattle(){
   console.log(playerWorld.playerWalking);
   playerWorld.playerWalking.style.left = `${gameContainer.offsetWidth / 2 - playerWorld.playerWalking.offsetWidth / 2}px`;
   playerWorld.playerWalking.style.top = `${gameContainer.offsetHeight / 2 - playerWorld.playerWalking.offsetHeight / 2}px`;
-}
+}*/
 
 enterBattle();
 
