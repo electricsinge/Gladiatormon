@@ -45,7 +45,7 @@ function leaveBattle(){
   playerWorld.playerWalking.style.top = `${gameContainer.offsetHeight / 2 - playerWorld.playerWalking.offsetHeight / 2}px`;
 }
 
-leaveBattle();
+enterBattle();
 
 let attackonbuttons = false;
 let attacking = false;
