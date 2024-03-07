@@ -5,6 +5,20 @@ let turn = true;
 let currentEnemy = enemies[0];
 let gameContainer = document.getElementById("game-container");
 let playerWalking = document.createElement("div");
+let playerWorld{
+  playerWalking: document.createElement(div);
+  playerTransform: [0, 0];
+
+  set x(value){
+    playerTransform[0] += value;
+    this.playerWalking.style.transform = `translate(${playerTransform[0]}px, ${playerTransform[1]}px)`;
+  }
+  
+  set y(value){
+    playerTransform[1] += value;
+    this.playerWalking.style.transform = `translate(${playerTransform[0]}px, ${playerTransform[1] + value}px)`;
+  }
+}
 playerWalking.id = "playerModel";
 gameContainer.appendChild(playerWalking);
 
