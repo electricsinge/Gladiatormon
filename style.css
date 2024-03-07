@@ -29,6 +29,7 @@ gametitlespace{
   height: 550px;
   background-color:white;
   position: relative;
+  display: flex;
   margin: auto;
 }
 

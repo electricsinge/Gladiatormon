@@ -23,8 +23,11 @@ function leaveBattle(){
   playerWalking.style.visibility = "visible";
   gameContainer.style.backgroundImage = "url('Images/Gladiatormon-WorldMap.png')";
   gameContainer.style.backgroundSize = "500%";
-  console.log(playerWalking.style.backgroundImage);
-  console.log(playerWalking.getBoundingClientRect());
+  console.log(gameContainer.getBoundingClientRect());
+  console.log(gameContainer);
+  console.log(playerWalking);
+  playerWalking.style.left = `${gameContainer.offsetWidth / 2 - playerWalking.offsetWidth / 2}px`;
+  playerWalking.style.top = `${gameContainer.offsetHeight / 2 - playerWalking.offsetHeight / 2}px`;
 }
 
 leaveBattle();
