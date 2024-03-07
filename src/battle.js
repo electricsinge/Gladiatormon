@@ -18,7 +18,7 @@ let playerWorld{
   set y(value){
     playerTransform[1] += value;
     this.playerWalking.style.transform = `translate(${playerTransform[0]}px, ${playerTransform[1] + value}px)`;
-  }
+  },
 }
 playerWorld.playerWalking.id = "playerModel";
 gameContainer.appendChild(playerWorld.playerWalking);
