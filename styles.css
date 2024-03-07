@@ -240,9 +240,11 @@ html, body {
   padding: 10px;
   padding-left: 4.25%;
   text-align: left;
+  background-color: "lightblue";
+  z-index: 100000;
 }
 
-info{
+.info{
   font-weight:bold;
   font-family: serif;
   font-size:20px;
