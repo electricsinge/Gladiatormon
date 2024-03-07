@@ -5,7 +5,7 @@ let turn = true;
 let currentEnemy = enemies[0];
 let gameContainer = document.getElementById("game-container");
 let playerWalking = document.createElement("div");
-playerWalking.style.Id = "playerModel";
+playerWalking.id = "playerModel";
 gameContainer.appendChild(playerWalking);
 
 function enterBattle(){
@@ -23,6 +23,8 @@ function leaveBattle(){
   playerWalking.style.visibility = "visible";
   gameContainer.style.backgroundImage = "url('Images/Gladiatormon-WorldMap.png')";
   gameContainer.style.backgroundSize = "500%";
+  console.log(playerWalking.style.backgroundImage);
+  console.log(playerWalking.getBoundingClientRect());
 }
 
 leaveBattle();
