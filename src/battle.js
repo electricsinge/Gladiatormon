@@ -4,7 +4,7 @@ let options = ["Attack","Defend","Spare"];
 let turn = true;
 let currentEnemy = enemies[0];
 let gameContainer = document.getElementById("game-container");
-let createPlayer = document.createElement(div);
+let createPlayer = document.createElement("div");
 let playerWorld{
   playerWalking: createPlayer,
   playerTransform: [0, 0],
