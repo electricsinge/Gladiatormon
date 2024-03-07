@@ -41,8 +41,8 @@ function leaveBattle(){
   console.log(gameContainer.getBoundingClientRect());
   console.log(gameContainer);
   console.log(playerWorld.playerWalking);
-  playerWorld.playerWalking.style.left = `${gameContainer.offsetWidth / 2 - playerWalking.offsetWidth / 2}px`;
-  playerWorld.playerWalking.style.top = `${gameContainer.offsetHeight / 2 - playerWalking.offsetHeight / 2}px`;
+  playerWorld.playerWalking.style.left = `${gameContainer.offsetWidth / 2 - playerWorld.playerWalking.offsetWidth / 2}px`;
+  playerWorld.playerWalking.style.top = `${gameContainer.offsetHeight / 2 - playerWorld.playerWalking.offsetHeight / 2}px`;
 }
 
 leaveBattle();
