@@ -28,6 +28,7 @@ function leaveBattle(){
   console.log(playerWalking);
   playerWalking.style.left = `${gameContainer.offsetWidth / 2 - playerWalking.offsetWidth / 2}px`;
   playerWalking.style.top = `${gameContainer.offsetHeight / 2 - playerWalking.offsetHeight / 2}px`;
+  
 }
 
 leaveBattle();
