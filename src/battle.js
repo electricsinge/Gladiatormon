@@ -8,16 +8,18 @@ let createPlayer = document.createElement("div");
 let playerWorld = {
   playerWalking: createPlayer,
   playerTransform: [0, 0],
-  speed: 20,
+  speed: 2,
+  location: [0, 0],
 
   set x(value){
-    playerTransform[0] += value;
-    this.playerWalking.style.transform = `translate(${playerTransform[0]}px, ${playerTransform[1]}px)`;
+    console.log(value);
+    this.playerTransform[0] += value;
+    this.playerWalking.style.transform = `scale(0.25, 0.25) translate(${this.playerTransform[0]}px, ${this.playerTransform[1]}px)`;
   },
   
   set y(value){
-    playerTransform[1] += value;
-    this.playerWalking.style.transform = `translate(${playerTransform[0]}px, ${playerTransform[1] + value}px)`;
+    this.playerTransform[1] += value;
+    this.playerWalking.style.transform = `scale(0.25, 0.25) translate(${this.playerTransform[0]}px, ${this.playerTransform[1]}px)`;
   },
 }
 playerWorld.playerWalking.id = "playerModel";
