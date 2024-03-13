@@ -1,14 +1,16 @@
 let background = "";
+let isMoving = [0,0];
 let buttonAttacks = [attacks[0], attacks[1], attacks[2]];
 let options = ["Attack","Defend","Spare"];
 let turn = true;
 let currentEnemy = enemies[0];
 let gameContainer = document.getElementById("game-container");
 let createPlayer = document.createElement("div");
+let backgroundTransform = [0,0];
 let playerWorld = {
   playerWalking: createPlayer,
   playerTransform: [0, 0],
-  speed: 2,
+  speed: 20,
   location: [0, 0],
 
   set x(value){
@@ -116,3 +118,4 @@ function battleBegin(){
 }
 
 battleBegin();
+
