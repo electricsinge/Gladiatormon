@@ -18,7 +18,7 @@ function move(){
   playerWorld.location = [Math.abs(Math.floor(((backgroundTransform[0]-140)/1480)*70)), Math.abs(Math.floor((backgroundTransform[1]-320)/820)*40)];
   console.log("location", playerWorld.location)
   console.log("background", [((backgroundTransform[0]-140)/1480)*70, ((backgroundTransform[1]-320)/820)*40])
-  if(collisionsMap[Math.abs(playerWorld.location[1])][Math.abs(Math.floor((backgroundTransform[0]+ 160)/70)+isMoving[0])]!=0){
+  if(collisionsMap[Math.abs(playerWorld.location[1]-1)][Math.abs(Math.floor((backgroundTransform[0]+ 160)/70)+isMoving[0])-1]!=0){
     console.log("xcompromised");
     isMoving[0]=0;
   }
