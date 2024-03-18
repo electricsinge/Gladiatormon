@@ -17,6 +17,8 @@ isMoving = [0,0];
 function move(){
   //for x: -140
   //for y: -320
+  //for Background Transform: down is down
+  //for Background Transform: up is up
   playerWorld.location = [Math.abs(Math.floor(((backgroundTransform[0]-140)/1480)*70)), Math.abs(Math.floor(((backgroundTransform[1]-320)/820)*40))];
   console.log("location", playerWorld.location)
   console.log("background", [((backgroundTransform[0]-140)/1480)*70, ((backgroundTransform[1]-320)/820)*40])
@@ -24,12 +26,12 @@ function move(){
   console.log(collisionsMap[Math.abs(Math.floor(((backgroundTransform[1]+isMoving[1]-320)/820)*40)-1)][Math.abs(playerWorld.location[0])-1]);
   console.log("isMoving", isMoving);
 
-  if(collisionsMap[Math.abs(playerWorld.location[1]-1)][Math.abs(Math.floor(((backgroundTransform[0]+isMoving[0]-140)/1480)*70)-1)]==1494){
+  if(collisionsMap[Math.abs(39-playerWorld.location[1])][Math.abs(39-(Math.floor(((backgroundTransform[0]-isMoving[0]-140)/1480)*70)-1))]==1494){
     console.log("xcompromised");
     isMoving[0]=0;
   }
 
-  if(collisionsMap[Math.abs(Math.floor(((backgroundTransform[1]+isMoving[1]-320)/820)*40)-1)][Math.abs(playerWorld.location[0])-1]==1494){
+  if(collisionsMap[Math.abs(39-(Math.floor(((backgroundTransform[1]-isMoving[1]-320)/820)*40)-1))][Math.abs(39-playerWorld.location[0])-1]==1494){
     console.log("ycompromised");
     isMoving[1]=0;
   }
