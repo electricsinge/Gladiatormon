@@ -10,7 +10,7 @@ let backgroundTransform = [0,0];
 let playerWorld = {
   playerWalking: createPlayer,
   playerTransform: [0, 0],
-  speed: 20,
+  speed: 5,
   location: [0, 0],
 
   set x(value){

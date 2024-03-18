@@ -15,14 +15,21 @@ gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
 isMoving = [0,0];
 
 function move(){
-  playerWorld.location = [Math.abs(Math.floor(((backgroundTransform[0]-140)/1480)*70)), Math.abs(Math.floor((backgroundTransform[1]-320)/820)*40)];
+  //for x: -140
+  //for y: -320
+  playerWorld.location = [Math.abs(Math.floor(((backgroundTransform[0]-140)/1480)*70)), Math.abs(Math.floor(((backgroundTransform[1]-320)/820)*40))];
   console.log("location", playerWorld.location)
   console.log("background", [((backgroundTransform[0]-140)/1480)*70, ((backgroundTransform[1]-320)/820)*40])
-  if(collisionsMap[Math.abs(playerWorld.location[1]-1)][Math.abs(Math.floor((backgroundTransform[0]+ 160)/70)+isMoving[0])-1]!=0){
+  console.log("1val",Math.abs(Math.floor(((backgroundTransform[1]+isMoving[1]-320)/820)*40)-1))
+  console.log(collisionsMap[Math.abs(Math.floor(((backgroundTransform[1]+isMoving[1]-320)/820)*40)-1)][Math.abs(playerWorld.location[0])-1]);
+  console.log("isMoving", isMoving);
+
+  if(collisionsMap[Math.abs(playerWorld.location[1]-1)][Math.abs(Math.floor(((backgroundTransform[0]+isMoving[0]-140)/1480)*70)-1)]==1494){
     console.log("xcompromised");
     isMoving[0]=0;
   }
-  if(collisionsMap[Math.floor((parseInt(backgroundTransform[1], 10) + isMoving[1] + (window.screen.height/2))/40)][Math.abs(location[0])]!=0){
+
+  if(collisionsMap[Math.abs(Math.floor(((backgroundTransform[1]+isMoving[1]-320)/820)*40)-1)][Math.abs(playerWorld.location[0])-1]==1494){
     console.log("ycompromised");
     isMoving[1]=0;
   }
@@ -121,8 +128,8 @@ document.addEventListener("keyup", (event) => {
       break;
 }});
 
-function update(){
-  //let location = [Math.abs(Math.floor((backgroundTransform[0]+ 160)/70)), Math.abs(Math.floor((parseInt(gameContainer.style.backgroundPositionY)+326)/40))];
+/*function update(){
+  //playerWorld.location = [Math.abs(Math.floor((backgroundTransform[0]+ 160)/70)), Math.abs(Math.floor((parseInt(gameContainer.style.backgroundPositionY)+326)/40))];
   console.log(playerWorld.location);
   console.log("Background", gameContainer.style.backgroundPosition)
   //console.log(isMoving);
@@ -135,7 +142,7 @@ function update(){
   if(collisionsMap[Math.floor((parseInt(backgroundTransform[1], 10) + isMoving[1] + (window.screen.height/2))/40)][Math.abs(location[0])]!=0){
     //console.log("ycompromised");
     isMoving[1]=0;
-  }*/
+  }
   
   if(firstTime==true){
     isMoving[0]=-138;
@@ -154,7 +161,6 @@ function update(){
 //  }
   if(firstTime==true){
     isMoving = [0,0];
-    location = [0,0];
   }
 
   else{
@@ -167,4 +173,4 @@ function update(){
   requestAnimationFrame(update);
 }
 
-//update();
+//update();*/
