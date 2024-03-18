@@ -26,12 +26,12 @@ function move(){
   console.log(collisionsMap[Math.abs(Math.floor(((backgroundTransform[1]+isMoving[1]-320)/820)*40)-1)][Math.abs(playerWorld.location[0])-1]);
   console.log("isMoving", isMoving);
 
-  if(collisionsMap[Math.abs(39-playerWorld.location[1])][Math.abs(39-(Math.floor(((backgroundTransform[0]-isMoving[0]-140)/1480)*70)))]==1494){
+  if(collisionsMap[Math.abs(39-playerWorld.location[1])][Math.abs(39-(Math.floor(((backgroundTransform[0]-isMoving[0]+140)/1480)*70)))]==1494){
     console.log("xcompromised");
     isMoving[0]=0;
   }
 
-  if(collisionsMap[Math.abs(39-(Math.floor(((backgroundTransform[1]-isMoving[1]-320)/820)*40)))][Math.abs(39-playerWorld.location[0])]==1494){
+  if(collisionsMap[Math.abs(39-(Math.floor(((backgroundTransform[1]-isMoving[1]+320)/820)*40)))][Math.abs(39-playerWorld.location[0])]==1494){
     console.log("ycompromised");
     isMoving[1]=0;
   }
@@ -41,11 +41,11 @@ function move(){
   gameContainer.style.backgroundPositionX = `${backgroundTransform[0]}px`
   backgroundTransform[1] -= isMoving[1];
   gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
-  if(isMoving[0] != 0 && isMoving[1] != 0){
-    requestAnimationFrame(move);
+  if(isMoving[0] == 0 && isMoving[1] == 0){
+    movingFunction = false;
   }
   else{
-    movingFunction = false;
+    requestAnimationFrame(move);
   }
 }
 
