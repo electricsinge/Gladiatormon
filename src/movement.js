@@ -41,7 +41,7 @@ function move(){
   gameContainer.style.backgroundPositionX = `${backgroundTransform[0]}px`
   backgroundTransform[1] -= isMoving[1];
   gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
-  if(isMoving[0] == 0 && isMoving[1] == 0){
+  if(isMoving == [0,0]){
     movingFunction = false;
   }
   else{
