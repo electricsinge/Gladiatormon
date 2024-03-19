@@ -5,6 +5,7 @@ let movingFunction = false;
 
 function isColliding(location){
   if(collisionsMap[location[1]][location[0]] == 1494){
+    alert("collided");
     return true;
   }
   
