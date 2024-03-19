@@ -4,7 +4,7 @@ let firstTime = true;
 let movingFunction = false;
 
 function isColliding(location){
-  if(collisionsMap[location[1]][location[0] == 1494){
+  if(collisionsMap[location[1]][location[0]] == 1494){
     return true;
   }
   
@@ -20,10 +20,10 @@ let movingBackground = {
   set x(value){
     this._x += value;
 
-    if(isColliding([Math.abs(Math.floor((this._x-140)/70)), Math.abs(Math.floor((this._y-320)/40)])==true){
+    if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width/2)))/70)), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height)/2))/40)])==true){
       this._x -= value;
     } else{
-    playerWorld.location[0] = Math.abs(Math.floor((this._x-140)/70));
+    playerWorld.location[0] = Math.abs(Math.floor((this._x-(gameContainer.getBoundingClientRect().width/2))/70));
     gameContainer.style.backgroundPositionX = `${this._x}px`
     }
   },
@@ -35,10 +35,10 @@ let movingBackground = {
   set y(value){
     this._y += value;
 
-    if(isColliding([Math.abs(Math.floor((this._x-140)/70)), Math.abs(Math.floor((this._y-320)/40)]==true)/40)){
+    if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width/2)))/70)), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height)/2))/40)])==true){
       this._y -= value;
     } else{
-    playerWorld.location[1] = Math.abs(Math.floor((this._y-320)/40);
+    playerWorld.location[1] = Math.abs(Math.floor((this._y-(gameContainer.getBoundingClientRect().height/2))/40);
     gameContainer.style.backgroundPositionY = `${this._y}px`
     }
   },
