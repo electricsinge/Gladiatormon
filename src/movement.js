@@ -33,14 +33,14 @@ let movingBackground = {
   },
 
   set y(value){
-    this._y += value;
-
-    if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width/2)))/70)), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height)/2))/40)])==true){
+   this._y += value;
+  
+   if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width/2)))/70)), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height)/2))/40)])==true){
       this._y -= value;
-    } else{
-    playerWorld.location[1] = Math.abs(Math.floor((this._y-(gameContainer.getBoundingClientRect().height/2))/40));
-    gameContainer.style.backgroundPositionY = `${this._y}px`
-    }
+   } else{
+      playerWorld.location[1] = Math.abs(Math.floor((this._y-(gameContainer.getBoundingClientRect().height/2))/40));
+      gameContainer.style.backgroundPositionY = `${this._y}px`;
+   }
   },
 
   get y(){
