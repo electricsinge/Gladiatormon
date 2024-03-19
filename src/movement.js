@@ -3,6 +3,15 @@ let negativeSpeed = playerWorld.speed * -1;
 let firstTime = true;
 let movingFunction = false;
 
+function isColliding(location){
+  if(collisionsMap[location[1]][location[0] == 1494){
+    return true;
+  }
+  
+  return false;
+}
+
+
 let movingBackground = {
 
   _x: 0,
@@ -10,7 +19,13 @@ let movingBackground = {
 
   set x(value){
     this._x += value;
-    playerWorld.location[0] = Math.abs(Math.floor(((_x-140)/1480)*70));
+
+    if(isColliding([Math.abs(Math.floor((this._x-140)/70)), Math.abs(Math.floor((this._y-320)/40)])==true){
+      this._x -= value;
+    } else{
+    playerWorld.location[0] = Math.abs(Math.floor((this._x-140)/70));
+    gameContainer.style.backgroundPositionX = `${this._x}px`
+    }
   },
 
   get x(){
@@ -19,7 +34,13 @@ let movingBackground = {
 
   set y(value){
     this._y += value;
-    playerWorld.location[1] = Math.abs(Math.floor(((_y-320)/820)*40));
+
+    if(isColliding([Math.abs(Math.floor((this._x-140)/70)), Math.abs(Math.floor((this._y-320)/40)])/40)){
+      this._y -= value;
+    } else{
+    playerWorld.location[1] = Math.abs(Math.floor((this._y-320)/40);
+    gameContainer.style.backgroundPositionY = `${this._y}px`
+    }
   },
 
   get y(){
@@ -30,21 +51,21 @@ let movingBackground = {
 
 topLeft = [-138, -300];
 
-isMoving[1] = 300;
-
+/*isMoving[1] = 300;
 backgroundTransform[0] -= isMoving[0];
 gameContainer.style.backgroundPositionX = `${backgroundTransform[0]}px`
 backgroundTransform[1] -= isMoving[1];
 gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
+isMoving = [0,0]*/
 
-isMoving = [0,0];
+movingBackground.y = -300;
 
 function move(){
   //for x: -140
   //for y: -320
   //for Background Transform: down is down
   //for Background Transform: up is up
-  playerWorld.location = [Math.abs(Math.floor(((backgroundTransform[0]-140)/1480)*70)), Math.abs(Math.floor(((backgroundTransform[1]-320)/820)*40))];
+  /*playerWorld.location = [Math.abs(Math.floor(((backgroundTransform[0]-140)/1480)*70)), Math.abs(Math.floor(((backgroundTransform[1]-320)/820)*40))];
   console.log("location", playerWorld.location)
   console.log("background", [((backgroundTransform[0]-140)/1480)*70, ((backgroundTransform[1]-320)/820)*40])
   console.log("1val",Math.abs(Math.floor(((backgroundTransform[1]+isMoving[1]-320)/820)*40)-1))
@@ -65,7 +86,11 @@ function move(){
   backgroundTransform[0] -= isMoving[0];
   gameContainer.style.backgroundPositionX = `${backgroundTransform[0]}px`
   backgroundTransform[1] -= isMoving[1];
-  gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
+  gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`*/
+
+  movingBackground.x = isMoving[0];
+  movingBackground.y = isMoving[1];
+  
   if(isMoving == [0,0]){
     movingFunction = false;
   }
