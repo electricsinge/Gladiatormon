@@ -35,7 +35,7 @@ let movingBackground = {
   set y(value){
     this._y += value;
 
-    if(isColliding([Math.abs(Math.floor((this._x-140)/70)), Math.abs(Math.floor((this._y-320)/40)])/40)){
+    if(isColliding([Math.abs(Math.floor((this._x-140)/70)), Math.abs(Math.floor((this._y-320)/40)]==true)/40)){
       this._y -= value;
     } else{
     playerWorld.location[1] = Math.abs(Math.floor((this._y-320)/40);
