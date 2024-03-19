@@ -58,7 +58,14 @@ backgroundTransform[1] -= isMoving[1];
 gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
 isMoving = [0,0]*/
 
-movingBackground.y = -300;
+try {
+  movingBackground.y = -300;
+} catch (error) {
+  alert(error);
+  // Expected output: ReferenceError: nonExistentFunction is not defined
+  // (Note: the exact output may be browser-dependent)
+}
+
 
 function move(){
   //for x: -140
