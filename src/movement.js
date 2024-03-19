@@ -3,6 +3,31 @@ let negativeSpeed = playerWorld.speed * -1;
 let firstTime = true;
 let movingFunction = false;
 
+let movingBackground = {
+
+  _x: 0,
+  _y: 0,
+
+  set x(value){
+    this._x += value;
+    playerWorld.location[0] = Math.abs(Math.floor(((_x-140)/1480)*70));
+  },
+
+  get x(){
+    return this._x;
+  },
+
+  set y(value){
+    this._y += value;
+    playerWorld.location[1] = Math.abs(Math.floor(((_y-320)/820)*40));
+  },
+
+  get y(){
+    return this._y
+  }
+
+};
+
 topLeft = [-138, -300];
 
 isMoving[1] = 300;
