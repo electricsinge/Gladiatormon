@@ -50,7 +50,7 @@ let movingBackground = {
 
 };
 
-topLeft = [-138, -300];
+const topLeft = [-138, -300];
 
 /*isMoving[1] = 300;
 backgroundTransform[0] -= isMoving[0];
