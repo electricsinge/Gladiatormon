@@ -133,7 +133,7 @@ movingBackground.y = 300;
 
 function move(){
 
-  document.getElementById("coordinate").innerText = playerWorld.location;
+  //document.getElementById("coordinate").innerText = playerWorld.location;
 
   let pixelLocation = [movingBackground.x + (gameContainer.getBoundingClientRect().width/2), movingBackground.y + (gameContainer.getBoundingClientRect().height/2)]
 
