@@ -139,6 +139,7 @@ html, body {
   background-color:white;
   position: relative;
   margin: auto;
+  background-repeat: no-repeat;
 }
 
 #battlecharacter {
