@@ -2,12 +2,66 @@ let inBattle = false;
 let negativeSpeed = playerWorld.speed * -1;
 let firstTime = true;
 let movingFunction = false;
+let beingCalled = false;
+
+console.log(gameContainer.getBoundingClientRect())
+
+var characterPosition = {
+  x: 0,
+  y: 0
+};
+
+// Assuming character size is known:
+var characterWidth = 42; // 420 pixels scaled by 500%
+var characterHeight = 24; // 240 pixels scaled by 500%
+
+// Calculate character's next position based on movement
+var nextPosition = {
+  x: characterPosition.x + isMoving[0],
+  y: characterPosition.y + isMoving[1]
+};
+
+// Check for collision at the next position
+function isColliding(nextX, nextY) {
+  // Calculate the index of the cell in the collision map
+  var cellX = Math.floor(nextX / (420 / 70)); // Assuming 420 is the width of your background image
+  var cellY = Math.floor(nextY / (240 / 40)); // Assuming 240 is the height of your background image
+
+  // Check if the next position is within bounds
+  if (cellX >= 0 && cellX < collisionMap[0].length && cellY >= 0 && cellY < collisionMap.length) {
+      // Check if the cell contains a collision
+      return collisionMap[cellY][cellX] === 1494;
+  }
+  // If next position is out of bounds, consider it as collision
+  return true;
+}
+
+// Check if the character is about to collide at the next position
+function willCollide() {
+  // Calculate the bounding box of the character at the next position
+  var nextBoundingBox = {
+      left: nextPosition.x,
+      right: nextPosition.x + characterWidth,
+      top: nextPosition.y,
+      bottom: nextPosition.y + characterHeight
+  };
+
+  // Check for collision with each corner of the character's bounding box
+  return (
+      isColliding(nextBoundingBox.left, nextBoundingBox.top) ||
+      isColliding(nextBoundingBox.right, nextBoundingBox.top) ||
+      isColliding(nextBoundingBox.left, nextBoundingBox.bottom) ||
+      isColliding(nextBoundingBox.right, nextBoundingBox.bottom)
+  );
+}
+
+
 
 function isColliding(location){
-  if(collisionsMap[location[1]][location[0]] == 1494){
-    alert("collided");
-    return true;
-  }
+  console.log(location);
+  /*if(collisionsMap[location[1]][location[0]] == 1494){
+    //return true;
+  }*/
   
   return false;
 }
@@ -18,28 +72,36 @@ let movingBackground = {
   _x: 0,
   _y: 0,
 
-  set x(value){
-    this._x += value;
+  set x(xValue){
 
-    if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width/2)))/70)), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height)/2))/40)])==true){
-      this._x -= value;
-    } else{
-    playerWorld.location[0] = Math.abs(Math.floor((this._x-(gameContainer.getBoundingClientRect().width/2))/70));
-    gameContainer.style.backgroundPositionX = `${this._x}px`
+
+    if(willCollide()){}//if(isColliding([Math.abs(Math.floor(((this._x-xValue-(gameContainer.getBoundingClientRect().width*5/2)))/30)), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height*5/2)))/30))])==true){}
+    else{
+      characterPosition = nextPosition;
+
+      this._x -= xValue;
+      playerWorld.location[0] = Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width*5/2)))/30));
+      gameContainer.style.backgroundPositionX = `${this._x}px`
+      console.log("equal", gameContainer.style.backgroundPosition)
     }
+    return;
   },
 
   get x(){
     return this._x;
   },
 
-  set y(value){
-   this._y += value;
+  set y(yValue){
   
-   if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width/2)))/70)), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height)/2))/40))])==true){
-      this._y -= value;
-   } else{
-      playerWorld.location[1] = Math.abs(Math.floor((this._y-(gameContainer.getBoundingClientRect().height/2))/40));
+    //console.log(yValue)
+
+    //console.log("y-pixel", (this._y-yValue-(gameContainer.getBoundingClientRect().height)/2))
+
+    if(willCollide()){}//if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width*5/2)))/30)), Math.abs(Math.floor(((this._y-yValue-(gameContainer.getBoundingClientRect().height*5/2)))/30))])==true){}
+    else{
+      characterPosition = nextPosition;
+      this._y -= yValue;
+      playerWorld.location[1] = Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height*5/2)))/30));
       gameContainer.style.backgroundPositionY = `${this._y}px`;
    }
   },
@@ -59,16 +121,17 @@ backgroundTransform[1] -= isMoving[1];
 gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
 isMoving = [0,0]*/
 
-try {
-  movingBackground.y = -300;
-} catch (error) {
-  alert(error);
-  // Expected output: ReferenceError: nonExistentFunction is not defined
-  // (Note: the exact output may be browser-dependent)
-}
-
+movingBackground.y = 300;
 
 function move(){
+
+  let pixelLocation = [movingBackground.x + (gameContainer.getBoundingClientRect().width/2), movingBackground.y + (gameContainer.getBoundingClientRect().height/2)]
+
+  console.log(movingBackground);
+
+  console.log(pixelLocation, "location", [Math.floor(pixelLocation[0]/30), Math.floor(pixelLocation[1]/30)]);
+
+  //console.log("location", playerWorld.location)
   //for x: -140
   //for y: -320
   //for Background Transform: down is down
@@ -96,11 +159,14 @@ function move(){
   backgroundTransform[1] -= isMoving[1];
   gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`*/
 
+
+
   movingBackground.x = isMoving[0];
   movingBackground.y = isMoving[1];
   
-  if(isMoving == [0,0]){
+  if(isMoving[0] == 0 && isMoving[1] == 0){
     movingFunction = false;
+    beingCalled = false;
   }
   else{
     requestAnimationFrame(move);
@@ -111,51 +177,62 @@ document.addEventListener("keydown", (event) => {
 
   if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(event.code) > -1) {
         event.preventDefault();
+        console.log("hello")
    }
-
 
   switch(event.key){
     case "ArrowUp":
-      firstMovement = true;
-      //fastInterval = setInterval(function(){moveFast([0, negativeSpeed]);}, 5);
-      isMoving[1] = negativeSpeed;
-      /*movingUp = setInterval(function(){
-        backgroundTransform[1] -= isMoving[1];
-        gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
-      },5000);*/
+      if(isMoving[1]!=negativeSpeed){
+        firstMovement = true;
+        //fastInterval = setInterval(function(){moveFast([0, negativeSpeed]);}, 5);
+        isMoving[1] = negativeSpeed;
+        /*movingUp = setInterval(function(){
+          backgroundTransform[1] -= isMoving[1];
+          gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
+        },5000);*/
+      }
       break;
     case "ArrowDown":
-      firstMovement = true;
-      //fastInterval = setInterval(function(){moveFast([0, playerWorld.speed])}, 5);
-      isMoving[1] = playerWorld.speed;
-      /*movingDown = setInterval(function(){
-        backgroundTransform[1] -= isMoving[1];
-        gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
-      },5000);*/
+      if(isMoving[1]!=playerWorld.speed){
+        firstMovement = true;
+        //fastInterval = setInterval(function(){moveFast([0, playerWorld.speed])}, 5);
+        isMoving[1] = playerWorld.speed;
+        /*movingDown = setInterval(function(){
+          backgroundTransform[1] -= isMoving[1];
+          gameContainer.style.backgroundPositionY = `${backgroundTransform[1]}px`
+        },5000);*/
+      }
       break;
     case "ArrowLeft":
-      firstMovement = true;
-      //fastInterval = setInterval(function(){moveFast([negativeSpeed, 0])}, 5);
-      isMoving[0] = negativeSpeed;
-      /*movingLeft = setInterval(function(){
-        backgroundTransform[0] -= isMoving[0];
-        gameContainer.style.backgroundPositionX = `${backgroundTransform[0]}px`
-      },5000);*/
+      if(isMoving[0]!=negativeSpeed){
+        firstMovement = true;
+        //fastInterval = setInterval(function(){moveFast([negativeSpeed, 0])}, 5);
+        isMoving[0] = negativeSpeed;
+        /*movingLeft = setInterval(function(){
+          backgroundTransform[0] -= isMoving[0];
+          gameContainer.style.backgroundPositionX = `${backgroundTransform[0]}px`
+        },5000);*/
+      }
       break;
     case "ArrowRight":
-      firstMovement = true;
-      isMoving[0] = playerWorld.speed;
-      /*movingRight = setInterval(function(){
-        backgroundTransform[0] -= isMoving[0];
-        console.log(backgroundTransform);
-        gameContainer.style.backgroundPositionX = `${backgroundTransform[0]}px`
-      },5000);*/
-      //fastInterval = setInterval(function(){moveFast([playerWorld.speed, 0]);}, 5);
+      if(isMoving[0]!=playerWorld.speed){
+        firstMovement = true;
+        isMoving[0] = playerWorld.speed;
+        /*movingRight = setInterval(function(){
+          backgroundTransform[0] -= isMoving[0];
+          console.log(backgroundTransform);
+          gameContainer.style.backgroundPositionX = `${backgroundTransform[0]}px`
+        },5000);*/
+        //fastInterval = setInterval(function(){moveFast([playerWorld.speed, 0]);}, 5);
+      }
       break;
 }
 
 if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(event.code) > -1 && movingFunction == false){
-  move();
+  if(beingCalled==false){
+    beingCalled = true;
+    move();
+  }
 }});
 
 document.addEventListener("keyup", (event) => {
