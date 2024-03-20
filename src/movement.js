@@ -80,7 +80,7 @@ let movingBackground = {
       gameContainer.style.backgroundPositionX = `${this._x}px`
     }
 
-  if(isColliding([Math.abs(Math.floor(((this._x-xValue-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 2704, collisions)==true){
+  if(isColliding([Math.abs(Math.floor(((this._x-xValue-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 2704, collesiumInteraction)==true){
     if (confirm("Fight?") == true) {
       enterBattle();
     }  
@@ -106,7 +106,7 @@ let movingBackground = {
       gameContainer.style.backgroundPositionY = `${this._y}px`;
    }
 
-  if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-yValue-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 2704, collisions)==true){
+  if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-yValue-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 2704, collesiumInteraction)==true){
     if (confirm("Fight?") == true) {
       enterBattle();
     }  
