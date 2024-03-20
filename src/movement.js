@@ -56,9 +56,9 @@ function willCollide() {
 
 */
 
-function isColliding(location){
+function isColliding(location, number){
   console.log("isColliding", location);
-  if(collisionsMap[location[1]][location[0]] == 1494){
+  if(collisionsMap[location[1]][location[0]] == number){
     return true;
   }
   
@@ -72,13 +72,19 @@ let movingBackground = {
   _y: 0,
 
   set x(xValue){
-    if(isColliding([Math.abs(Math.floor(((this._x-xValue-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)])==true){}
+    if(isColliding([Math.abs(Math.floor(((this._x-xValue-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 1494)==true){}
     else{
 
       this._x -= xValue;
       playerWorld.location[0] = Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-12);
       gameContainer.style.backgroundPositionX = `${this._x}px`
     }
+
+  if(isColliding([Math.abs(Math.floor(((this._x-xValue-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 2704)==true){
+    if (confirm("Fight?") == true) {
+      enterBattle();
+    }  
+  }    
     return;
   },
 
@@ -93,7 +99,7 @@ let movingBackground = {
 
     //console.log("y-pixel", (this._y-yValue-(gameContainer.getBoundingClientRect().height)/2))
 
-    if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-yValue-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)])==true){}
+    if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-yValue-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 1494)==true){}
     else{
       this._y -= yValue;
       playerWorld.location[1] = Math.abs(Math.floor(((this._y-playerWorld.playerWalking.getBoundingClientRect().top))*7/150)-21);
