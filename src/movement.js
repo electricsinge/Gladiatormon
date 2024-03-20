@@ -56,9 +56,9 @@ function willCollide() {
 
 */
 
-function isColliding(location, number, dataMap){
+function isColliding(location){
   console.log("isColliding", location);
-  if(dataMap[location[1]][location[0]] == number){
+  if(collisionsMap[location[1]][location[0]] == 1494){
     return true;
   }
   
@@ -72,19 +72,13 @@ let movingBackground = {
   _y: 0,
 
   set x(xValue){
-    if(isColliding([Math.abs(Math.floor(((this._x-xValue-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 1494, collisions)==true){}
+    if(isColliding([Math.abs(Math.floor(((this._x-xValue-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)])==true){}
     else{
 
       this._x -= xValue;
       playerWorld.location[0] = Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-12);
       gameContainer.style.backgroundPositionX = `${this._x}px`
     }
-
-  if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 2704, collesiumInteraction)==true){
-    if (confirm("Fight?") == true) {
-      enterBattle();
-    }  
-  }    
     return;
   },
 
@@ -99,19 +93,12 @@ let movingBackground = {
 
     //console.log("y-pixel", (this._y-yValue-(gameContainer.getBoundingClientRect().height)/2))
 
-    if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 1494, collisions)==true){}
+    if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-yValue-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)])==true){}
     else{
       this._y -= yValue;
       playerWorld.location[1] = Math.abs(Math.floor(((this._y-playerWorld.playerWalking.getBoundingClientRect().top))*7/150)-21);
       gameContainer.style.backgroundPositionY = `${this._y}px`;
    }
-
-  if(isColliding([Math.abs(Math.floor(((this._x-(gameContainer.getBoundingClientRect().width-playerWorld.playerWalking.getBoundingClientRect().left)))*7/150)-3), Math.abs(Math.floor(((this._y-yValue-(gameContainer.getBoundingClientRect().height-playerWorld.playerWalking.getBoundingClientRect().top)))*7/150)-6)], 2704, collesiumInteraction)==true){
-    if (confirm("Fight?") == true) {
-      enterBattle();
-    }  
-  }   
-    
   },
 
   get y(){
@@ -132,8 +119,6 @@ isMoving = [0,0]*/
 movingBackground.y = 300;
 
 function move(){
-
-  //document.getElementById("coordinate").innerText = playerWorld.location;
 
   let pixelLocation = [movingBackground.x + (gameContainer.getBoundingClientRect().width/2), movingBackground.y + (gameContainer.getBoundingClientRect().height/2)]
 
